@@ -30,4 +30,14 @@ typedef struct instructions_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+#include <stdio.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <string.h>
+
+void remove_spaces(char *str);
+char **tokenize_cmd(char *cmd, const char *delim, int *num_tokens);
+void push(stack_t *topPtr, int data);
+void pop(stack_t *topPtr, int data);
+int isEmpty(stack_t *topPtr);
 #endif
