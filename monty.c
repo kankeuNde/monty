@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
 	size_t i;
 	char *opcode;
 	FILE *bytecode_file;
-	char *conv_strtock, int_cv_str;
+	char *arg_str;
+	int arg_int;
 
 	if (argc != 2)
 	{
@@ -49,12 +50,15 @@ int main(int argc, char *argv[])
 				if (strcmp(opcode, instructions[i].opcode) == 0)
 				{
 					found = 1;
-					conv_strtock = strtok(NULL, " \n");
-					if (conv_strtock != NULL)
+					if (strcmp(instructions[i].opcode, "push") == 0)
 					{
-						int_cv_str = atoi(conv_strtock);
+						arg_str = strtok(NULL, " \n");
+						if (arg_str != NULL && *arg_str != '\0')
+						{
+							arg_int = atoi(arg_str);
+						}
+						stack->n = arg_int;
 					}
-					stack->n = int_cv_str;
 					instructions[i].f(&stack, line_number);
 					break;
 				}
