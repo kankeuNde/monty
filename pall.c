@@ -1,9 +1,9 @@
 #include "monty.h"
 
-void pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **my_stack, unsigned int line_number)
 {
-	stack_t *print_node = *stack;
-	if (line_number)
+	stack_t *print_node = stack;
+	if (line_number && my_stack != NULL)
 	{
 		while (print_node != NULL)
 		{

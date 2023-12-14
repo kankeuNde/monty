@@ -1,11 +1,12 @@
 #include "monty.h"
 #define MAX_LINE_LENGTH 1024
-
+stack_t *stack;
 int main(int argc, char *argv[])
 {
 	char line[MAX_LINE_LENGTH];
 	unsigned int line_number;
-	stack_t *stack;
+	stack_t *my_stack;
+/*	stack_t *stack;*/
 	int found;
 	size_t i;
 	char *opcode;
@@ -26,7 +27,9 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 
-	stack = malloc(sizeof(stack_t));
+/*	stack = malloc(sizeof(stack_t));
+	stack->prev = NULL;*/
+	my_stack = malloc(sizeof(stack_t));
 	line_number = 1;
 	while (fgets(line, sizeof(line), bytecode_file))
 	{
@@ -57,9 +60,9 @@ int main(int argc, char *argv[])
 						{
 							arg_int = atoi(arg_str);
 						}
-						stack->n = arg_int;
+						my_stack->n = arg_int;
 					}
-					instructions[i].f(&stack, line_number);
+					instructions[i].f(&my_stack, line_number);
 					break;
 				}
 			}
