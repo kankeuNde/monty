@@ -34,10 +34,20 @@ typedef struct instructions_s
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
-
+void add(stack_t **stack, unsigned int line_number);
+void nop(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
+void pop(stack_t **stack, unsigned int line_number);
+void pall(stack_t **stack, unsigned int line_number);
+void push(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int line_number);
+int main(int argc, char *argv[]);
+/**
 void remove_spaces(char *str);
 char **tokenize_cmd(char *cmd, const char *delim, int *num_tokens);
 void push(stack_t *topPtr, int data);
 void pop(stack_t *topPtr, int data);
 int isEmpty(stack_t *topPtr);
+*/
 #endif
