@@ -1,67 +1,25 @@
 #include "monty.h"
 
-/*void push(stack_t *top, int data)
+/**
+ * is_a_num - check if the arg is a number
+ * @str: The string to check
+ * Return: 1 if it is a number and 0 otherwise
+ */
+int is_a_num(char *str)
 {
-	stack_t *newElt;
+	int i;
 
-	newElt = malloc(sizeof(stack_t));
-	if (newElt == NULL)
+	i = 0;
+	while (str[i])
 	{
-		perror("No memory available...");
-		exit(EXIT_FAILURE);
+		if (i == 0 && str[i] == '-' && str[i + 1])
+		{
+			i++;
+			continue;
+		}
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
 	}
-	newElt->n = data;
-	newElt->prev = NULL;
-	newElt->next = top;
-	if (top != NULL)
-	{
-		top->prev = newElt;
-	}
-	top = newElt;
+	return (1);
 }
-
-void pop(stack_t *top)
-{
-	stack_t *tmp;
-
-	tmp = malloc(sizeof(stack_t));
-	if (!top)
-	{
-		free(tmp);
-		perror("Empty stack, cannot remove from an Empty stack");
-		exit(EXIT_FAILURE);
-	}
-	else if (top->next == NULL && top->prev == NULL)
-	{
-		tmp = top;
-		top = NULL;
-		free(top);
-	}
-	else
-	{
-		tmp = top;
-		top = top->next;
-		top->prev = NULL;
-	}
-}
-
-int isEmpty(stack_t *top)
-{
-	if (top == NULL)
-		return (1);
-	else
-		return (0);
-}
-*/
-void print_stack(stack_t *top)
-{
-	stack_t *tmp;
-
-	tmp = top;
-	while (tmp != NULL)
-	{
-		printf("%d\n", tmp->n);
-		tmp = tmp->next;
-	}
-}
-

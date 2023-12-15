@@ -1,83 +1,68 @@
 #include "monty.h"
-#define MAX_LINE_LENGTH 1024
-stack_t *stack;
-int main(int argc, char *argv[])
-{
-	char line[MAX_LINE_LENGTH];
-	unsigned int line_number;
-	stack_t *my_stack;
-/*	stack_t *stack;*/
-	int found;
-	size_t i;
-	char *opcode;
-	FILE *bytecode_file;
-	char *arg_str;
-	int arg_int;
 
+arguments_t *arg_s = NULL;
+
+/**
+ * main - main entry point of the program
+ * @argc: arguments count
+ * @argv: arguments vector
+ *
+ * Return: 0 if success
+ */
+int main(int argc, char **argv)
+{
+	size_t n;
+
+	n = 0;
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: %s <bytecode_file>\n", argv[0]);
-		return EXIT_FAILURE;
+		dprintf(2, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
+	args_init();
+	open_stream(argv[1]);
 
-	bytecode_file = fopen(argv[1], "r");
-	if (!bytecode_file)
+	while (getline(&arg_s->line, &n, arg_s->stream) != -1)
 	{
-		perror("Error opening file");
-		return (EXIT_FAILURE);
+		arg_s->line_num += 1; /*keep track of current line number*/
+		tokenize();
+		get_opcode();
+		exec_instruction();
+		free_opcode_args();
+		/*		printf("%s", arg_s->line);*/
 	}
+	free_stream();/* close the stream*/
+	free_args();
+	return (0);
+}
 
-/*	stack = malloc(sizeof(stack_t));
-	stack->prev = NULL;*/
-	my_stack = malloc(sizeof(stack_t));
-	line_number = 1;
-	while (fgets(line, sizeof(line), bytecode_file))
+
+/**
+ * open_stream_err - Error handling during stream reading
+ * @filename: file name
+ */
+void open_stream_err(char *filename)
+{
+	dprintf(2, "Error: Can't open file %s\n", filename);
+	free_args();
+	exit(EXIT_FAILURE);
+}
+
+/**
+ * open_stream - open stream for reading
+ * @filename: file name
+ */
+void open_stream(char *filename)
+{
+	int fd;
+
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+		open_stream_err(filename);
+	arg_s->stream = fdopen(fd, "r");
+	if (arg_s->stream == NULL)
 	{
-		opcode = strtok(line, " \n");
-		if (opcode)
-		{
-			instruction_t instructions[] = {
-				{"push", push},
-				{"pall", pall},
-				{"pop", pop},
-				{"pint", pint},
-				{"swap", swap},
-				{"add", add},
-				{"nop", nop},
-				{"sub", sub}
-			};
-
-			found = 0;
-			for (i = 0; i < sizeof(instructions) / sizeof(instructions[0]); ++i)
-			{
-				if (strcmp(opcode, instructions[i].opcode) == 0)
-				{
-					found = 1;
-					if (strcmp(instructions[i].opcode, "push") == 0)
-					{
-						arg_str = strtok(NULL, " \n");
-						if (arg_str != NULL && *arg_str != '\0')
-						{
-							arg_int = atoi(arg_str);
-						}
-						my_stack->n = arg_int;
-					}
-					instructions[i].f(&my_stack, line_number);
-					break;
-				}
-			}
-
-			if (!found)
-			{
-				fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-				fclose(bytecode_file);
-				return (EXIT_FAILURE);
-			}
-		}
-
-		line_number++;
+		close(fd);
+		open_stream_err(filename);
 	}
-	fclose(bytecode_file);
-
-	return (EXIT_SUCCESS);
 }
