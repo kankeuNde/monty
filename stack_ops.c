@@ -49,3 +49,40 @@ void pall(stack_t **stack, unsigned int line_num)
 		temp = temp->next;
 	}
 }
+
+/**
+ * pint - prints the top
+ * @stack: Pointer to the stack
+ * @line_num: current line number
+ */
+void pint(stack_t **stack, unsigned int line_num)
+{
+	(void) stack;
+	if (arg_s->top == NULL)
+	{
+		dprintf(2, "L%d: can't pint, stack empty\n", line_num);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", arg_s->top->n);
+}
+
+/**
+ * pop - remove the top node
+ * @stack: Pointer to the stack
+ * @line_num: current line number
+ *
+ * Return: void
+ */
+void pop(stack_t **stack, unsigned int line_num)
+{
+	(void) stack;
+	if (arg_s->top == NULL)
+	{
+		dprintf(2, "L%d: can't pop an empty stack\n", line_num);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	remove_node();
+	arg_s->stack_len -= 1;
+}

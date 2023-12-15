@@ -23,3 +23,17 @@ int is_a_num(char *str)
 	}
 	return (1);
 }
+
+/**
+ * remove_node - remove the top node
+ *
+ * Return: void
+ */
+void remove_node(void)
+{
+	stack_t *temp;
+
+	temp = arg_s->top;
+	arg_s->top = temp->next;
+	free(temp);
+}

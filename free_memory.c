@@ -31,3 +31,30 @@ void free_stream(void)
 	fclose(arg_s->stream);
 	arg_s->stream = NULL;
 }
+
+/**
+ * free_stack - free stack memory
+ * @top: head of the stack
+ * Return: void
+ */
+void free_stack(stack_t *top)
+{
+	if (top == NULL)
+		return;
+
+	if (top->next != NULL)
+	{
+		free_stack(top->next);
+	}
+	free(top);
+}
+
+/**
+ * free_all - frees all memory allocated
+ */
+void free_all(void)
+{
+	free_stream();
+	free_opcode_args();
+	free_args();
+}

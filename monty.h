@@ -74,11 +74,15 @@ void exec_instruction();
 void free_stream();
 void free_opcode_args();
 int is_a_num(char *str);
+void free_top(void);
+void free_all(void);
+void free_stack(stack_t *top);
+void remove_node(void);
 
 void push(stack_t **stack, unsigned int line_num);
-/*void pop(stack_t **stack, unsigned int line_num);
+void pop(stack_t **stack, unsigned int line_num);
 void pint(stack_t **stack, unsigned int line_num);
-*/void pall(stack_t **stack, unsigned int line_num);
+void pall(stack_t **stack, unsigned int line_num);
 /*void swap(stack_t **stack, unsigned int line_num);
 void add(stack_t **stack, unsigned int line_num);
 void nop(stack_t **stack, unsigned int line_num);

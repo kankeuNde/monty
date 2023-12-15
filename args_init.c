@@ -24,5 +24,30 @@ void args_init(void)
  */
 void free_args(void)
 {
+	if (arg_s == NULL)
+		return;
+	if (arg_s->instruction)
+	{
+		free(arg_s->instruction);
+		arg_s->instruction = NULL;
+	}
+
+	free_top();
+
+	if (arg_s->line)
+	{
+		free(arg_s->line);
+		arg_s->line = NULL;
+	}
 	free(arg_s);
+}
+
+/**
+ * free_top - free memory of the top node
+ */
+void free_top(void)
+{
+	if (arg_s->top)
+		free_stack(arg_s->top);
+	arg_s->top = NULL;
 }
