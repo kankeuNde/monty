@@ -16,6 +16,9 @@ void get_opcode(void)
 		{"add", &add},
 		{"nop", &nop},
 		{"sub", &sub},
+		{"div", &_div},
+		{"mul", &mul},
+		{"mod", &mod},
 		{NULL, NULL}
 	};
 	i = 0;
