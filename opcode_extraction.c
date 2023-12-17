@@ -13,6 +13,7 @@ void get_opcode(void)
 		{"pint", &pint},
 		{"pop", &pop},
 		{"swap", &swap},
+		{"add", &add},
 		{NULL, NULL}
 	};
 	i = 0;
