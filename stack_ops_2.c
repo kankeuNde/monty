@@ -22,3 +22,14 @@ void add(stack_t **stack, unsigned int line_num)
 	remove_node();
 	arg_s->stack_len -= 1;
 }
+
+/**
+ * nop - do nothing
+ * @stack: Pointer to the stack
+ * @line_num: Current line number
+ */
+void nop(stack_t **stack, unsigned int line_num)
+{
+	(void) stack;
+	(void) line_num;
+}
