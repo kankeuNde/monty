@@ -12,6 +12,7 @@ void get_opcode(void)
 		{"pall", &pall},
 		{"pint", &pint},
 		{"pop", &pop},
+		{"swap", &swap}
 		{NULL, NULL}
 	};
 	i = 0;

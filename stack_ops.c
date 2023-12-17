@@ -86,3 +86,33 @@ void pop(stack_t **stack, unsigned int line_num)
 	remove_node();
 	arg_s->stack_len -= 1;
 }
+
+/**
+ * swap - swaps the top two nodes
+ * @stack: Pointer to the stack
+ * @line_num: current line number
+ *
+ * Return: void
+ */
+void swap(stack_t **stack, unsigned int line_num)
+{
+	stack_t *node1, *node2;
+
+	(void) stack;
+	if (arg_s->stack_len < 2)
+	{
+		dprintf(2, "L%d: can't swap, stack too short\n", line_num);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+
+	node1 = arg_s->head;
+	node2 = node1->next;
+	node1->next = node2->next;
+	if (node1->next)
+		node1->next->prev = node1;
+	node2->next = node1;
+	node1->prev = node2;
+	node2->prev = NULL;
+	arg_s->head = node2;
+}
