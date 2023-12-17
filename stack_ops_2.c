@@ -52,7 +52,7 @@ void sub(stack_t **stack, unsigned int line_num)
         }
 
         temp = arg_s->top->next;
-        temp->n = arg_s->top->n + temp->n;
+        temp->n = temp->n - arg_s->top->n;
         remove_node();
         arg_s->stack_len -= 1;
 }
