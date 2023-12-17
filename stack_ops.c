@@ -106,7 +106,7 @@ void swap(stack_t **stack, unsigned int line_num)
 		exit(EXIT_FAILURE);
 	}
 
-	node1 = arg_s->head;
+	node1 = arg_s->top;
 	node2 = node1->next;
 	node1->next = node2->next;
 	if (node1->next)
@@ -114,5 +114,5 @@ void swap(stack_t **stack, unsigned int line_num)
 	node2->next = node1;
 	node1->prev = node2;
 	node2->prev = NULL;
-	arg_s->head = node2;
+	arg_s->top = node2;
 }
